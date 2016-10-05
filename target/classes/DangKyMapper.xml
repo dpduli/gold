@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tdthinh.gold.mappers.DangKyMapper">
+
+	<!-- Map between class DangKy (Java) vs column dangky (MySQL) -->
+	<select id="getDkByMaNd" parameterType="String"
+		resultType="com.tdthinh.gold.model.DangKy">
+		SELECT
+		ma_nd as maNd,
+		kieu_nd as kieuNd,
+		ten_nd as tenNd,
+		email as email,
+		dia_chi as diaChi,
+		so_dt as soDt
+		FROM DANGKY
+		WHERE
+		MA_ND=#{maNd}
+	</select>
+
+	<resultMap type="DangKy" id="DangKyResult">
+		<id property="maNd" column="ma_nd" />
+		<id property="kieuNd" column="kieu_nd" />
+		<id property="tenNd" column="ten_nd" />
+		<id property="email" column="email" />
+		<id property="diaChi" column="dia_chi" />
+		<id property="soDt" column="so_dt" />
+	</resultMap>
+
+	<!-- Show all data DangKy -->
+	<select id="getDangKy" resultMap="DangKyResult">
+		SELECT*FROM DANGKY
+	</select>
+
+	<!-- Insert data -->
+	<insert id="insertDangKy" parameterType="DangKy"
+		useGeneratedKeys="true" keyProperty="maNd">
+		INSERT INTO DANGKY (ma_nd,
+		kieu_nd, ten_nd, email, dia_chi, so_dt)
+		VALUES (#{maNd}, #{kieuNd},
+		#{tenNd}, #{email}, #{diaChi}, #{soDt})
+	</insert>
+
+	<!-- Update data -->
+	<update id="updateDangKy" parameterType="DangKy">
+		UPDATE DANGKY
+		SET
+		kieu_nd
+		= #{kieuNd},
+		ten_nd = #{tenNd},
+		email = #{email},
+		dia_chi = #{diaChi},
+		so_dt = #{soDt}
+		WHERE MA_ND=#{maNd}
+	</update>
+
+	<!-- Delete data -->
+	<delete id="deleteDangKy" parameterType="String">
+		DELETE FROM SUAHANG
+		WHERE MA_ND = #{maNd}
+	</delete>
+</mapper>

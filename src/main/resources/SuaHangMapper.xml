@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tdthinh.gold.mappers.SuaHangMapper">
+
+	<select id="getShByMaHd" parameterType="String"
+		resultType="com.tdthinh.gold.model.SuaHang">
+		SELECT
+		ma_hd as maHd,
+		ten_kh as tenKh,
+		so_dt as soDt,
+		diachi as diaChi
+		FROM SUAHANG
+		WHERE MA_HD=#{maHd}
+	</select>
+
+	<resultMap type="SuaHang" id="SuaHangResult">
+		<id property="maHd" column="ma_hd" />
+		<result property="tenKh" column="ten_kh" />
+		<result property="soDt" column="so_dt" />
+		<result property="diaChi" column="diachi" />
+	</resultMap>
+
+	<!-- Show all data in SuaHang -->
+	<select id="getSuaHang" resultMap="SuaHangResult">
+		SELECT*FROM SUAHANG
+	</select>
+
+	<!-- Insert data -->
+	<insert id="insertSuaHang" parameterType="SuaHang"
+		useGeneratedKeys="true" keyProperty="maHd">
+		INSERT INTO SUAHANG(ma_hd, ten_kh,
+		so_dt, diachi)
+		VALUES(#{maHd}, #{tenKh}, #{soDt}, #{diaChi})
+	</insert>
+
+	<!-- Update data -->
+	<update id="updateSuaHang" parameterType="SuaHang">
+		UPDATE SUAHANG
+		SET
+		ten_kh =#{tenKh},
+		so_dt =#{soDt},
+		diachi =#{diaChi}
+		WHERE MA_HD =#{maHd}
+	</update>
+
+	<!-- Delete data -->
+	<delete id="deleteSuaHang" parameterType="String">
+		DELETE FROM SUAHANG WHERE MA_HD= #{maHd}
+	</delete>
+
+</mapper>
+  
